@@ -1,0 +1,38 @@
+START TRANSACTION;
+
+DROP DATABASE IF EXISTS ecig_database;
+CREATE DATABASE ecig_database;
+USE ecig_database;
+
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+    `id` INT(10) NOT NULL AUTO_INCREMENT,
+    `lastname` VARCHAR(255) NOT NULL,
+    `firstname` VARCHAR(255) NOT NULL,
+    `adress` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(255) NOT NULL,
+    `zip_code` VARCHAR(255) NOT NULL,
+    `city` VARCHAR(255) NOT NULL,
+    `pwd` VARCHAR(255) NOT NULL,
+    `date_suscribe` DATETIME DEFAULT CURRENT_DATE,
+    `date_update` DATETIME DEFAULT CURRENT_DATE,
+    `date_delete` DATETIME DEFAULT CURRENT_DATE,
+    PRIMARY KEY (`id`)
+)ENGINE=innoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products` (
+    `id` INT(10) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `ref` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    `img` VARCHAR(255) NOT NULL,
+    `prix` FLOAT(10) NOT NULL,
+    `date_create` DATETIME DEFAULT CURRENT_DATE,
+    `date_update` DATETIME DEFAULT CURRENT_DATE,
+    `date_delete` DATETIME DEFAULT CURRENT_DATE,
+    PRIMARY KEY (`id`)
+)ENGINE=innoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+COMMIT;
