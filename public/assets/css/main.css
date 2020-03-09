@@ -143,10 +143,10 @@ footer{
     cursor: pointer;
 }
 
-#image{
+.image{
     border: 1px solid silver;
-    width: 100px; !important
-    height: 100px; !important
+    width: 100px !important; 
+    height: 100px !important; 
 }
 
 body,
@@ -172,4 +172,9 @@ html {
     transform: translate(-50%, -50%);
     z-index: 2;
     width: 75%;
+}
+
+.size-img{
+    width: 10%;
+    height:10%;
 }

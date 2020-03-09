@@ -1,8 +1,7 @@
 <?php
 require_once('core/connect-Db.php');
 session_start();
-if(isset($_GET['id'])){
-    
+if (isset($_GET['id'])) {
 }
 ?>
 <!DOCTYPE html>
@@ -25,33 +24,36 @@ if(isset($_GET['id'])){
     <?php
     require_once('partial/header.php');
     ?>
-
     <section class="container-fluid">
         <div class="row d-flex w-75 justify-content-center bg-white opa-product mx-auto mt-3">
-            <div class="order-1 col-3">
+            <?php
+            $req = "SELECT * FROM products WHERE id=:id";
+            $statement = $dbh->prepare($req);
+            $statement->execute([':id' => $_GET['id']]);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            extract($result);
+            var_dump($result);
+            ?>
+            <div class="order-1 col-5">
                 <div class="mt-2">
-                    <h3>French Dude</h3>
+                    <h3><?= utf8_encode($name) ?></h3>
                 </div>
                 <div>
-                    <span class="">Toast Myrtilles</span>
-                    <br>
-                    <br>
 
-                    <p class="size-text-product">
-                        Le French Dude est un e-liquide fabriqué aux Etats-Unis par Vape Breakfast Classics. Un mélange harmonieux de pain grillé, myrtille, sirop d'érable et crème chantilly !<br>Le French Dude est conçu avec une plus forte concentration d'arômes pour être mélangé avec un ou plusieurs Unicorn Boost sans dénaturer ses saveurs.
-                    </p>
+                    <p class="size-text-product"><?= utf8_encode($description) ?></p>
                 </div>
             </div>
-            <div class="order-0">
-                <div class="col-6">
-                    <img src="./public/assets/img/frenchdude.jpg" class="text-center img-fluid mt-2" alt="">
-                </div>
+            <div class="col-4 order-0">
+
+                <img src="<?= $img ?>" class="text-center img-fluid mt-2" alt="">
+
             </div>
             <div class="order-2 col-3 mt-2">
-                <p>Prix</p>
+                <p><?= $prix ?></p>
                 <p>Contenance</p>
                 <p>Nicotine</p>
-                <button>Ajouter au panier</button>
+                <button class="btn btn-dark text-white">Ajouter au panier</button>
+                <a href="modify_product.php?id=<?=$id?>"><button class="btn btn-dark text-white">Modifier le produit</button></a>
             </div>
         </div>
         <div class="w-75 row d-flex mx-auto justify-content-center bg-white opa-product">
@@ -87,11 +89,8 @@ if(isset($_GET['id'])){
                     </tbody>
                 </table>
             </div>
-            <div class="col-3">
-                <img src="./public/assets/img/frenchdude.jpg" class="img-fluid w-100 opa" alt="">
-
-            </div>
         </div>
+        
     </section>
 
 

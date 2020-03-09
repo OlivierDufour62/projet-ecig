@@ -17,7 +17,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 header('Location: espace.php?id=' .$id);
             } 
         }
-        
     } else {
         echo "Dommage";
     }

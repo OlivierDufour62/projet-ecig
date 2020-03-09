@@ -1,7 +1,7 @@
-<?php 
+<?php
 session_start();
 require_once('core/connect-Db.php');
-if(isset($_GET['id'])){
+if (isset($_GET['id'])) {
     if (isset($_POST['email'])) {
         $lastname  = htmlspecialchars($_POST['lastname']);
         $firstname = htmlspecialchars($_POST['firstname']);
@@ -12,16 +12,13 @@ if(isset($_GET['id'])){
         $pwd = htmlspecialchars($_POST['password']);
         $req = 'UPDATE users SET lastname=:lastname, firstname=:firstname,adress=:address ,email=:email,zip_code=:zip_code ,city=:city,pwd=:pwd WHERE id=:id';
         $statement = $dbh->prepare($req);
-        $statement->execute([':lastname'=>$lastname,':firstname'=>$firstname,':address'=>$address, ':email'=>$email,':zip_code'=>$zip_code,':city'=>$city, ':pwd'=>$pwd,':id'=>$_GET['id']]);
-        
-        
+        $statement->execute([':lastname' => $lastname, ':firstname' => $firstname, ':address' => $address, ':email' => $email, ':zip_code' => $zip_code, ':city' => $city, ':pwd' => $pwd, ':id' => $_GET['id']]);
     }
+
     $statement = $dbh->query("SELECT * FROM users WHERE id=" . $_GET['id']);
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     extract($result[0]);
-
-
-} 
+}
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +71,7 @@ if(isset($_GET['id'])){
                     <div class="md-form mb-4">
                         <i class="fas fa-envelope prefix grey-text opz"></i>
                         <label data-error="wrong" data-success="right" for="address">Adresse</label>
-                        <input type="text" name="address" id="address"  value="<?= utf8_encode($adress) ?>"class="form-control validate">
+                        <input type="text" name="address" id="address" value="<?= utf8_encode($adress) ?>" class="form-control validate">
                     </div>
                     <div class="md-form mb-4">
                         <i class="fas fa-lock prefix grey-text opa"></i>
