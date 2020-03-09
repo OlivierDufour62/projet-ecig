@@ -1,5 +1,6 @@
 <?php
 require_once('core/connect-Db.php');
+require_once('core/define.php');
 // if (!isset($_GET['id'])) {
 // }
 if (isset($_POST['email']) && isset($_POST['password'])) {

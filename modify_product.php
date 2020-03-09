@@ -1,5 +1,6 @@
 <?php
 require_once('core/connect-Db.php');
+require_once('core/define.php');
 session_start();
 if(isset($_GET['id'])){
     
@@ -28,17 +29,31 @@ if(isset($_GET['id'])){
             $statement->execute([':id' => $_GET['id']]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             extract($result);
-            var_dump($result);
-
+            if(isset($_POST['name'])){
+            $name2 = utf8_encode(htmlspecialchars($_POST['name']));
+            $refe = utf8_encode(htmlspecialchars($_POST['ref']));
+            $desc = utf8_encode(htmlspecialchars($_POST['description']));
+            $price = utf8_encode(htmlspecialchars($_POST['prix']));
+            $image = utf8_encode(htmlspecialchars($_POST['img']));
+            $insert = "UPDATE products SET name=:name, ref=:ref,description=:description,img=:img,prix=:prix WHERE id=:id";
+            $stmt = $dbh->prepare($insert);
+            $stmt->execute([':name' => $name2, ':ref'=>$ref,':description'=>$desc, ':img'=>$image, ':prix'=>$price,':id' => $_GET['id']]); 
+            $req2 ="SELECT * FROM products WHERE id=:id";
+            $statement2 = $dbh->prepare($req);
+            $statement2->execute([':id' => $_GET['id']]);
+        }
     ?>
     
     <div class="bg-image"></div>
     <div class="bg-text">
         <div class="container-fluid w-75 bg-text">
-            <h1 class="text-center pt-5 mb-5">Proposer un produit</h1>
-            <form action="/action_page.php" class="needs-validation" novalidate>
+            <h1 class="text-center pt-5 mb-5">Modifier un produit</h1>
+            <form method="POST" class="needs-validation">
                 <div class="container-fluid">
                     <div class="d-flex justify-content-center form-group row">
+                    
+                            <input type="hidden" class="form-control ml-2 col-8" value="<?=utf8_encode($id)?>" id="id" name="id">
+                        
                         <div class="d-flex justify-content-center w-75">
                             <label class="m-0 p-0 m-auto col-4" for="name">Nom</label>
                             <input type="text" class="form-control ml-2 col-8" value="<?=utf8_encode($name)?>" id="name" name="name">
@@ -70,15 +85,15 @@ if(isset($_GET['id'])){
                     <div class="d-flex justify-content-center form-group row">
                         <div class="d-flex row justify-content-center w-75">
                             <label class="col-4 newbtn mr-5">
-                                <img id="image1" class="image" class="w-100" src="<?=$img?>">
-                                <input id="picture1" name="img1" class="picture" type="file">
+                                <img id="img" class="image" class="w-100" src="<?=BASE_IMG . $img?>">
+                                <input id="picture1" name="img" class="picture" type="file">
                             </label>
                             <div class="invalid-feedback">Please fill out this field.</div>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="w-25 btn btn-primary text-center mb-3">Modifier</button>
+                    <button class="w-25 btn btn-primary text-center mb-3">Modifier</button>
                 </div>
             </form>
         </div>

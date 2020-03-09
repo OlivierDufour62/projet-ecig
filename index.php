@@ -1,6 +1,7 @@
 <?php
 
 require_once('core/connect-Db.php');
+require_once('core/define.php');
 session_start();
 ?>
 <!DOCTYPE html>
@@ -33,7 +34,7 @@ session_start();
     echo '<div class="row w-75 d-flex m-auto">';
     foreach ($result as $key => $value) {
         echo '<div class="col-xs-6 col-md-4"><div class="cuadro_intro_hover my-2">';
-        echo '<img src=' . $value['img'] . ' class="img-responsive w-100" alt="">';
+        echo '<img src=' . BASE_IMG . $value['img'] . ' class="img-responsive w-100" alt="">';
         echo '<div class="caption">
             <div class="blur"><div class="caption-text">';
         echo '<h3 class="mt-3">' . utf8_encode($value['name']) . '</h3>';

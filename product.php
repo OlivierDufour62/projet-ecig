@@ -1,5 +1,6 @@
 <?php
 require_once('core/connect-Db.php');
+require_once('core/define.php');
 session_start();
 if (isset($_GET['id'])) {
 }
@@ -32,7 +33,6 @@ if (isset($_GET['id'])) {
             $statement->execute([':id' => $_GET['id']]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             extract($result);
-            var_dump($result);
             ?>
             <div class="order-1 col-5">
                 <div class="mt-2">
@@ -45,7 +45,7 @@ if (isset($_GET['id'])) {
             </div>
             <div class="col-4 order-0">
 
-                <img src="<?= $img ?>" class="text-center img-fluid mt-2" alt="">
+                <img src="<?=BASE_IMG . $img ?>" class="text-center img-fluid mt-2" alt="">
 
             </div>
             <div class="order-2 col-3 mt-2">
@@ -54,6 +54,7 @@ if (isset($_GET['id'])) {
                 <p>Nicotine</p>
                 <button class="btn btn-dark text-white">Ajouter au panier</button>
                 <a href="modify_product.php?id=<?=$id?>"><button class="btn btn-dark text-white">Modifier le produit</button></a>
+                <a href="delete_product.php?id=<?=$id?>"><button type="submit" class="btn btn-dark text-white">Supprimer le produit</button></a>
             </div>
         </div>
         <div class="w-75 row d-flex mx-auto justify-content-center bg-white opa-product">

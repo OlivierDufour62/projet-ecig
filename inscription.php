@@ -1,5 +1,6 @@
 <?php
 require_once('core/connect-Db.php');
+require_once('core/define.php');
 session_start();
 if (isset($_POST['email'])) {
     $lastname  = htmlspecialchars($_POST['lastname']);
