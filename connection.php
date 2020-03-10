@@ -11,7 +11,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     
         foreach ($result2 as $key => $value) {
             if ($_POST['password'] && $value['pwd']) {
-                echo 'coucou';
+                
                 session_start();
                 $_SESSION['id'] = $value['id'];
                 $id=$value['id'];

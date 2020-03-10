@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(isset($_SESSION)){
+    header('Location: index.php');
+}
 require_once('core/connect-Db.php');
 require_once('core/define.php');
 if (isset($_GET['id'])) {
