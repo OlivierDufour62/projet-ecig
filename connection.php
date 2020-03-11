@@ -1,25 +1,32 @@
 <?php
+
+//echo password_hash("020988", PASSWORD_DEFAULT);
+
 require_once('core/connect-Db.php');
 require_once('core/define.php');
 // if (!isset($_GET['id'])) {
 // }
+
+
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    $statement = $dbh->prepare('SELECT id,email,pwd FROM users WHERE email="' . $_POST['email'] . '" AND pwd="' . $_POST['password']. '"');
-    $statement->execute();
-    $result2 = $statement->fetchAll(PDO::FETCH_ASSOC);
-    if (isset($result2)) {
+    $email = htmlspecialchars($_POST['email']);
+    $pwd = htmlspecialchars($_POST['password']);
+    $statement = $dbh->prepare('SELECT * FROM users WHERE email=:email');
+    $statement->execute([':email' => $email]);
+    $result2 = $statement->fetch(PDO::FETCH_ASSOC);
     
-        foreach ($result2 as $key => $value) {
-            if ($_POST['password'] && $value['pwd']) {
-                echo 'coucou';
-                session_start();
-                $_SESSION['id'] = $value['id'];
-                $id=$value['id'];
-                header('Location: espace.php?id=' .$id);
-            } 
-        }
+    if (count($result2) > 0) {
+        //Retourne true si le mot de passe en clair est bien le mot de passe haché
+        if(password_verify($pwd, $result2['pwd']))
+        {
+            session_start();
+            $_SESSION['id'] = $value['id'];
+            $_SESSION['email'] = $value['email'];
+            header('Location: espace.php');
+        
+        } 
     } else {
-        echo "Dommage";
+        echo "Email ou Mot de passe invalide";
     }
 }
 
@@ -58,10 +65,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                         <i class="fas fa-lock prefix grey-text opz"></i>
                         <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
                         <input type="password" name="password" id="defaultForm-pass" class="form-control validate">
-                    </div>_
+                    </div>
                 </div>
                 <div class="mb-3 text-center">
-                    <button class="btn bg-dark text-white">Inscrivez vous</button>
+                    <button type="submit" class="btn bg-dark text-white">Connectez vous</button>
                 </div>
             </form>
         </div>

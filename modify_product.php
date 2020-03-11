@@ -2,9 +2,9 @@
 require_once('core/connect-Db.php');
 require_once('core/define.php');
 session_start();
-if(isset($_GET['id'])){
+// if(isset($_GET['id'])){
     
-}
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">

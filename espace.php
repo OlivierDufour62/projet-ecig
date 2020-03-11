@@ -1,24 +1,29 @@
 <?php
 session_start();
+
 require_once('core/connect-Db.php');
 require_once('core/define.php');
-if (isset($_GET['id'])) {
+if (isset($_SESSION['id'])) {
     if (isset($_POST['email'])) {
-        $lastname  = htmlspecialchars($_POST['lastname']);
+        $lastname = htmlspecialchars($_POST['lastname']);
         $firstname = htmlspecialchars($_POST['firstname']);
         $address = htmlspecialchars($_POST['address']);
         $email = htmlspecialchars($_POST['email']);
         $zip_code = htmlspecialchars($_POST['zip_code']);
         $city = htmlspecialchars($_POST['city']);
         $pwd = htmlspecialchars($_POST['password']);
+        $id = (int) $_GET['id'];
         $req = 'UPDATE users SET lastname=:lastname, firstname=:firstname,adress=:address ,email=:email,zip_code=:zip_code ,city=:city,pwd=:pwd WHERE id=:id';
         $statement = $dbh->prepare($req);
         $statement->execute([':lastname' => $lastname, ':firstname' => $firstname, ':address' => $address, ':email' => $email, ':zip_code' => $zip_code, ':city' => $city, ':pwd' => $pwd, ':id' => $_GET['id']]);
     }
 
-    $statement = $dbh->query("SELECT * FROM users WHERE id=" . $_GET['id']);
+    $statement = $dbh->prepare("SELECT * FROM users WHERE id=:id");
+    $statement->execute([':id' => $id]);
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     extract($result[0]);
+} else {
+    header('Location: index.php');
 }
 ?>
 

@@ -11,7 +11,7 @@ CREATE TABLE `users` (
     `lastname` VARCHAR(255) NOT NULL,
     `firstname` VARCHAR(255) NOT NULL,
     `adress` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(255) NOT NULL UNIQUE,
     `zip_code` VARCHAR(255) NOT NULL,
     `city` VARCHAR(255) NOT NULL,
     `pwd` VARCHAR(255) NOT NULL,

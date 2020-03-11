@@ -1,6 +1,6 @@
 START TRANSACTION;
 
-INSERT INTO `users`(`lastname`, `firstname`, `adress`, `zip_code`, `city`,`email`, `pwd`) VALUES ('dufour','olivier','224 rue rosa luxemburg','62880','rouvroy','olivier.dufour62@yahoo.com','020988'),('delannoy', 'Jonathan', '1 rue de lièvin', '62800', 'liévin','jonathan.delannoy@yahoo.com', '070505'),
+INSERT INTO `users`(`lastname`, `firstname`, `adress`, `zip_code`, `city`,`email`, `pwd`) VALUES ('dufour','olivier','224 rue rosa luxemburg','62880','rouvroy','olivier.dufour62@yahoo.com','$2y$10$9D9ZMDFLXPM48OzZJnjb/uolkGtQYo7sQIDmvpkJr9kVAyqvyRiKq'),('delannoy', 'Jonathan', '1 rue de lièvin', '62800', 'liévin','jonathan.delannoy@yahoo.com', '070505'),
 ('dupont', 'jean', '12 rue danton', '62860', 'fion','jean.dupont@yahoo.com' ,'090406');
 
 INSERT INTO `products`(`name`, `ref`, `description`, `img`, `prix`) VALUES ('Concentré French Dude','01F5D1','Toast myrtilles créme fouetté','frenchdude.jpg','13.90'),
