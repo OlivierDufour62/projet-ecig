@@ -14,14 +14,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $statement = $dbh->prepare('SELECT * FROM users WHERE email=:email');
     $statement->execute([':email' => $email]);
     $result2 = $statement->fetch(PDO::FETCH_ASSOC);
-    
+    var_dump($result2);
     if (count($result2) > 0) {
         //Retourne true si le mot de passe en clair est bien le mot de passe haché
         if(password_verify($pwd, $result2['pwd']))
         {
             session_start();
-            $_SESSION['id'] = $value['id'];
-            $_SESSION['email'] = $value['email'];
+            $_SESSION['id'] = $result2['id'];
+            $_SESSION['email'] = $result2['email'];
             header('Location: espace.php');
         
         } 
